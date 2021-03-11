@@ -2,8 +2,14 @@ from __future__ import annotations
 
 import csv
 import datetime
-from dataclasses import dataclass
+import os
+from dataclasses import asdict, dataclass
 from typing import List
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from trading_db.rdb.bitcoin import Bitcoin
 
 # https://www.investing.com/crypto/bitcoin/historical-data
 
@@ -15,10 +21,6 @@ def get_data_from_csv(filename: str) -> List[PriceData]:
         for row in reader:
             result.append(PriceData.of(row))
     return result
-
-
-def insert_data_to_db():
-    pass
 
 
 def str_to_float(float_str: str):
@@ -53,3 +55,17 @@ class PriceData:
             volume=str_to_float(data[5]),
             change=str_to_float(data[6]),
         )
+
+
+if __name__ == "__main__":
+    DB_URI = os.environ["TRADING_SQLALCHEMY_DATABASE_URI"]
+
+    engine = create_engine(DB_URI)
+    Session = sessionmaker()
+    Session.configure(bind=engine)
+    session = Session()
+
+    data = get_data_from_csv("bitcoin-data.csv")
+    for row in data:
+        session.add(Bitcoin(**asdict(row)))
+    session.commit()
