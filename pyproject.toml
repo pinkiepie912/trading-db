@@ -16,7 +16,7 @@ authors = ["PinkiePie <pinkiepies912@google.com>"]
 python = "^3.9"
 alembic = "^1.5.5"
 SQLAlchemy = "^1.3.23"
-mysqlclient = "^2.0.3"
+PyMySQL = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
