@@ -14,11 +14,12 @@ authors = ["PinkiePie <pinkiepies912@google.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-alembic = "^1.5.5"
+alembic = "^1.7.3"
 PyMySQL = "^1.0.2"
 SQLAlchemy-Utils = "^0.36.8"
 cryptography = "^3.4.6"
 SQLAlchemy = {extras = ["mypy"], version = "^1.4.25"}
+greenlet = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
