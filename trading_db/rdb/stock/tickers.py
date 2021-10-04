@@ -12,6 +12,7 @@ class StockTicker(Model):
         Enum(StockType, native_enum=False, create_constraint=False),
         nullable=False,
     )
+    name = Column(String(255), nullable=False)
     ticker = Column(String(255), nullable=False)
     currency = Column(
         Enum(Currency, native_enum=False, create_constraint=False),
