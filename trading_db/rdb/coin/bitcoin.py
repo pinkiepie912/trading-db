@@ -1,7 +1,7 @@
 from sqlalchemy import BigInteger, Column, Date, Float
 from sqlalchemy.sql import functions as sqlfuncs
 
-from .base import Model
+from trading_db.rdb.base import Model
 
 
 class Bitcoin(Model):

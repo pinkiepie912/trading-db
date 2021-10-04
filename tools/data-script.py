@@ -9,7 +9,7 @@ from typing import List
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from trading_db.rdb.bitcoin import Bitcoin
+from trading_db.rdb.coin.bitcoin import Bitcoin
 
 # https://www.investing.com/crypto/bitcoin/historical-data
 
