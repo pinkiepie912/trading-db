@@ -1,18 +1,9 @@
-import enum
-from typing import TYPE_CHECKING
-
 from sqlalchemy import Column, Enum, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from ..base import Model
-
-if TYPE_CHECKING:
-    from ..stock_firm.firm import Firm
-
-
-class StockType(enum.Enum):
-    STOCK = "STOCK"
-    ETF = "ETF"
+from ..constants import Currency, StockType
+from ..stock_firm.firm import Firm
 
 
 class StockTicker(Model):
@@ -22,6 +13,10 @@ class StockTicker(Model):
         nullable=False,
     )
     ticker = Column(String(255), nullable=False)
+    currency = Column(
+        Enum(Currency, native_enum=False, create_constraint=False),
+        nullable=False,
+    )
     firm_id = Column(Integer, ForeignKey("firms.id"))
     fee = Column(Float, nullable=False)
     tax = Column(Float, nullable=False)

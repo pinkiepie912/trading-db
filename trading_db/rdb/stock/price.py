@@ -1,6 +1,3 @@
-import enum
-from typing import TYPE_CHECKING
-
 from sqlalchemy import (
     BigInteger,
     Column,
@@ -15,14 +12,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from ..base import Model
-
-if TYPE_CHECKING:
-    from ..stock.tickers import StockTicker
-
-
-class Currency(enum.Enum):
-    USD = "USD"
-    KRW = "KRW"
+from ..constants import Currency
+from ..stock.tickers import StockTicker
 
 
 class Price(Model):
