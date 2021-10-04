@@ -1,18 +1,23 @@
 import enum
+from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     BigInteger,
     Column,
     DateTime,
+    Enum,
     Float,
     ForeignKey,
     Index,
     Integer,
-    String,
     UniqueConstraint,
 )
+from sqlalchemy.orm import relationship
 
-from trading_db.rdb.base import Model
+from ..base import Model
+
+if TYPE_CHECKING:
+    from ..stock.tickers import StockTicker
 
 
 class Currency(enum.Enum):
@@ -20,15 +25,9 @@ class Currency(enum.Enum):
     KRW = "KRW"
 
 
-class StockType(enum.Enum):
-    STOCK = "STOCK"
-    ETF = "ETF"
-
-
 class Price(Model):
     id = Column(BigInteger, primary_key=True, autoincrement=True)
     ticker_id = Column(Integer, ForeignKey("tickers.id"))
-    stock_type = Column(String(255), nullable=False)
     adj_close = Column(Float, nullable=False)
     close = Column(Float, nullable=False)
     high = Column(Float, nullable=False)
@@ -36,7 +35,12 @@ class Price(Model):
     open = Column(Float, nullable=False)
     volume = Column(BigInteger, nullable=False)
     date_time = Column(DateTime(timezone=True), nullable=False)
-    currency = Column(String(255), nullable=False)
+    currency = Column(
+        Enum(Currency, native_enum=False, create_constraint=False),
+        nullable=False,
+    )
+
+    ticker: StockTicker = relationship("StockTicker")
 
     __tablename__ = "prices"
     __table_args__ = (
