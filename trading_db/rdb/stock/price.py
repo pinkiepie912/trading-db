@@ -35,8 +35,8 @@ class Price(Model):
 
     __tablename__ = "prices"
     __table_args__ = (
-        Index("ix_date_time_ticker_id", ticker_id, date_time.desc()),
+        Index("ix_stock_date_time_ticker_id", ticker_id, date_time.desc()),
         UniqueConstraint(
-            "ticker_id", "date_time", name="uix_date_time_ticker_id"
+            "ticker_id", "date_time", name="uix_stock_date_time_ticker_id"
         ),
     )

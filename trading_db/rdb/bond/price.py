@@ -40,8 +40,8 @@ class Bond(Model):
 
     __tablename__ = "bonds"
     __table_args__ = (
-        Index("ix_date_time_ticker_id", date_time.desc(), ticker_id),
+        Index("ix_bond_date_time_ticker_id", date_time.desc(), ticker_id),
         UniqueConstraint(
-            "ticker_id", "date_time", name="uix_date_time_ticker_id"
+            "ticker_id", "date_time", name="uix_bond_date_time_ticker_id"
         ),
     )
