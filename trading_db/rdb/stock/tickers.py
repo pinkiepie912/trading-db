@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from sqlalchemy import (
     Column,
     DateTime,
@@ -34,3 +36,6 @@ class StockTicker(Model):
     firm: Firm = relationship("Firm")
 
     __tablename__ = "tickers"
+
+    def soft_delete(self):
+        self.deleted_at = datetime.now(tz=timezone.utc)

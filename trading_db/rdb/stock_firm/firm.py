@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from sqlalchemy import Column, DateTime, Float, Integer, String, func
 
 from trading_db.rdb.base import Model
@@ -11,3 +13,6 @@ class Firm(Model):
     deleted_at = Column(DateTime(timezone=True), nullable=True)
 
     __tablename__ = "firms"
+
+    def soft_delete(self):
+        self.deleted_at = datetime.now(tz=timezone.utc)
