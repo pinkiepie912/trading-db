@@ -1,4 +1,12 @@
-from sqlalchemy import Column, Enum, Float, ForeignKey, Integer, String
+from sqlalchemy import (
+    Column,
+    DateTime,
+    Enum,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+)
 from sqlalchemy.orm import relationship
 
 from ..base import Model
@@ -21,6 +29,7 @@ class StockTicker(Model):
     firm_id = Column(Integer, ForeignKey("firms.id"))
     fee = Column(Float, nullable=False)
     tax = Column(Float, nullable=False)
+    deleted_at = Column(DateTime(timezone=True), nullable=True)
 
     firm: Firm = relationship("Firm")
 
