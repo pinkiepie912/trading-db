@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
+from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     Column,
@@ -14,7 +17,9 @@ from sqlalchemy.orm import relationship
 
 from ..base import Model
 from ..constants import Currency, StockType
-from ..stock_firm.firm import Firm
+
+if TYPE_CHECKING:
+    from ..stock_firm.firm import Firm
 
 
 class StockTicker(Model):
@@ -34,7 +39,7 @@ class StockTicker(Model):
     tax = Column(Float, nullable=False)
     deleted_at = Column(DateTime(timezone=True), nullable=True)
 
-    firm: Firm = relationship("Firm")
+    firm: Firm = relationship("Firm", back_populates="tickers")
 
     __tablename__ = "tickers"
 
