@@ -32,6 +32,8 @@ class Firm(Model):
     def soft_delete(self):
         self.deleted_at = datetime.now(tz=timezone.utc)
         for ticker in self.tickers:
+            if not ticker.is_active:
+                continue
             ticker.soft_delete()
 
     @hybrid_property
